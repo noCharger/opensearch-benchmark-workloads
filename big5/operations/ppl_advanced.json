@@ -1,0 +1,18 @@
+{
+  "name": "ppl-subquery_where",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `process.name` in [ source = {{index_name | default('big5')}} | stats count() by `process.name` | fields `process.name` ]"
+  }
+},
+{
+  "name": "ppl-multi_stats_by_region",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats sum(`metrics.size`) count() as c avg(`metrics.tmin`) dc(`agent.id`) by `cloud.region` | sort - c | head 10"
+  }
+}

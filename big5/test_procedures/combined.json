@@ -1,0 +1,60 @@
+{
+  "name": "combined",
+  "default": false,
+  "description": "Test procedure for both JSON and PPL queries",
+  "schedule": [
+    {% with default_index_settings={}, index_name="big5" %}
+    {{ benchmark.collect(parts="../../common_operations/workload_setup.json") }},
+    {% endwith %}
+    {{ benchmark.collect(parts="common/big5-schedule.json") }},
+    {
+      "operation": "ppl-term",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-query-string-on-message",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-desc_sort_timestamp",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-date_histogram_hourly_agg",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-range",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-keyword-terms",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-subquery_where",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    }
+  ]
+}

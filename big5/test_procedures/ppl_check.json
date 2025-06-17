@@ -1,0 +1,14 @@
+{
+  "name": "ppl-check",
+  "default": false,
+  "description": "Test procedure to check if PPL queries work",
+  "schedule": [
+    {
+      "operation": "ppl-term",
+      "warmup-iterations": 1,
+      "iterations": 1,
+      "target-throughput": 1,
+      "clients": 1
+    }
+  ]
+}

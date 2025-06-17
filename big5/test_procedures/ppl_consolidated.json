@@ -1,0 +1,378 @@
+{
+  "name": "ppl-consolidated",
+  "default": false,
+  "description": "Test procedure for PPL queries with Calcite setting using consolidated operations",
+  "schedule": [
+    {% with default_index_settings={}, index_name="big5" %}
+    {{ benchmark.collect(parts="../../common_operations/workload_setup.json") }},
+    {% endwith %}
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-term",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-query-string-on-message",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-query-string-on-message-filtered",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-query-string-on-message-filtered-sorted-num",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-desc_sort_timestamp",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-asc_sort_timestamp",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-desc_sort_with_after_timestamp",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-sort_numeric_desc",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-sort_numeric_asc",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-date_histogram_hourly_agg",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-date_histogram_minute_agg",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-composite-date_histogram-daily",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-range",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-range-numeric",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-keyword-in-range",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-range_field_conjunction_big_range_big_term_query",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-keyword-terms",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-keyword-terms-low-cardinality",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-composite-terms",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-composite_terms-keyword",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-subquery_where",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-left_join_timestamp",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    
+    {
+      "operation": "set-calcite-enabled",
+      "iterations": 1,
+      "clients": 1,
+      "request-parameters": {
+        "calcite_enabled": "{{calcite_enabled | default('false')}}"
+      }
+    },
+    {
+      "operation": "ppl-semi_join_process",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    }
+  ]
+}

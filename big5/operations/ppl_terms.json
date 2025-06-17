@@ -1,0 +1,36 @@
+{
+  "name": "ppl-keyword-terms",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() by `aws.cloudwatch.log_stream` | sort -`count()` | head 500"
+  }
+},
+{
+  "name": "ppl-keyword-terms-low-cardinality",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() by `aws.cloudwatch.log_stream` | sort - `count()` | head 100"
+  }
+},
+{
+  "name": "ppl-composite-terms",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-02 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000' | stats count() by `process.name`, `cloud.region` | sort - `process.name`, + `cloud.region`"
+  }
+},
+{
+  "name": "ppl-composite_terms-keyword",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-02 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000' | stats count() by `process.name`, `cloud.region`, `aws.cloudwatch.log_stream` | sort - `process.name`, + `cloud.region`, + `aws.cloudwatch.log_stream`"
+  }
+}

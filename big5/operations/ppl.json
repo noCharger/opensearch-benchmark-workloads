@@ -1,0 +1,36 @@
+{
+  "name": "ppl-term",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `log.file.path` = '/var/log/messages/birdknight'"
+  }
+},
+{
+  "name": "ppl-query-string-on-message",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where query_string(['message'], 'shield AND carp AND shark')"
+  }
+},
+{
+  "name": "ppl-query-string-on-message-filtered",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-01 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000' | where query_string(['message'], 'shield AND carp AND shark')"
+  }
+},
+{
+  "name": "ppl-query-string-on-message-filtered-sorted-num",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-01 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000' | where query_string(['message'], 'shield AND carp AND shark') | sort `metrics.size`"
+  }
+}

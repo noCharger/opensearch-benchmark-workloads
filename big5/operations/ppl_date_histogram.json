@@ -1,0 +1,27 @@
+{
+  "name": "ppl-date_histogram_hourly_agg",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() by span(`@timestamp`, 1h)"
+  }
+},
+{
+  "name": "ppl-date_histogram_minute_agg",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-01 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000' | stats count() by span(`@timestamp`, 1m)"
+  }
+},
+{
+  "name": "ppl-composite-date_histogram-daily",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2022-12-30 00:00:00.000000000' and `@timestamp` < '2023-01-07 12:00:00.000000000' | stats count() by span(`@timestamp`, 1d)"
+  }
+}

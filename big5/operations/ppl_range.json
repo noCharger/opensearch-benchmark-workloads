@@ -1,0 +1,36 @@
+{
+  "name": "ppl-range",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-01 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000'"
+  }
+},
+{
+  "name": "ppl-range-numeric",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `metrics.size` >= 1 and `metrics.size` <= 1000"
+  }
+},
+{
+  "name": "ppl-keyword-in-range",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `@timestamp` >= '2023-01-01 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000' | where `process.name` = 'kernel'"
+  }
+},
+{
+  "name": "ppl-range_field_conjunction_big_range_big_term_query",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `process.name` = 'systemd' | where `metrics.size` >= 1 and `metrics.size` <= 1000"
+  }
+}

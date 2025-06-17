@@ -2,7 +2,9 @@
 
 This repository contains the **_Big5_** workload for benchmarking OpenSearch using OpenSearch Benchmark. This workload focuses on five essential areas in OpenSearch performance and querying: Text Querying, Sorting, Date Histogram, Range Queries, and Terms Aggregation.
 
-This workload is derived from the Elasticsearch vs. OpenSearch comparison benchmark.  It has been modified to conform to OpenSearch Benchmark terminology and comply with OpenSearch features.
+This workload is derived from the Elasticsearch vs. OpenSearch comparison benchmark. It has been modified to conform to OpenSearch Benchmark terminology and comply with OpenSearch features.
+
+The workload includes both JSON-based queries and PPL (Piped Processing Language) queries to benchmark different query interfaces in OpenSearch.
 
 
 ### The "Big 5" Areas
@@ -71,6 +73,32 @@ This workload allows the following parameters to be specified using `--workload-
 
 NOTE: If disabling `target_throughput`, know that `target_throughput:""` is snynonymous with `target_throughput:0`.
 
+### PPL Query Format
+
+The workload includes PPL (Piped Processing Language) queries that correspond to the JSON queries. PPL is a query language that uses a pipe syntax similar to Unix pipes, allowing you to chain commands together to filter, transform, and analyze data.
+
+Here are some examples of PPL queries included in the workload:
+
+```
+# Simple term query
+source = big5 | where 'log.file.path' = '/var/log/messages/birdknight'
+
+# Query with sorting
+source = big5 | sort - `@timestamp`
+
+# Date histogram aggregation
+source = big5 | stats count() by span(`@timestamp`, 1h)
+
+# Range query with filtering
+source = big5 | where `@timestamp` >= '2023-01-01 00:00:00.000000000' and `@timestamp` < '2023-01-03 00:00:00.000000000'
+
+# Terms aggregation
+source = big5 | stats count() by `aws.cloudwatch.log_stream` | sort -`count()` | head 500
+
+# Advanced query with subquery
+source = big5 | where `process.name` in [ source = big5 | stats count() by `process.name` | fields `process.name` ]
+```
+
 ### Data Document Structure
 
 The document schema can be found in the `index.json` file.  An example document from the data corpus is provided below.
@@ -119,6 +147,30 @@ The document schema can be found in the `index.json` file.  An example document 
 }
 
 ```
+
+### Test Procedures
+
+The workload includes several test procedures:
+
+* `big5` (default): Runs the standard JSON-based queries
+* `ppl`: Runs the PPL queries that correspond to the JSON queries using the OpenSearch PPL plugin
+* `combined`: Runs a selection of both JSON and PPL queries for direct comparison
+
+The PPL queries use the raw-request operation type to send requests directly to the `/_plugins/_ppl` endpoint. This allows benchmarking the performance of OpenSearch's PPL interface compared to the standard JSON query DSL.
+
+To run the PPL test procedure:
+
+```
+opensearch-benchmark execute-test --pipeline=benchmark-only --workload=big5 --test-procedure=ppl --target-host=<your-opensearch-host>
+```
+
+To run the combined test procedure for comparison:
+
+```
+opensearch-benchmark execute-test --pipeline=benchmark-only --workload=big5 --test-procedure=combined --target-host=<your-opensearch-host>
+```
+
+Note: The OpenSearch SQL plugin with PPL support must be installed on your OpenSearch cluster for the PPL queries to work.
 
 ### Sample Run Output
 

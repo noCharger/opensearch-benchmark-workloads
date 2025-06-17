@@ -1,0 +1,50 @@
+{
+  "name": "ppl-desc_sort_timestamp",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "request-timeout": 30,
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | sort - @timestamp"
+  }
+},
+{
+  "name": "ppl-asc_sort_timestamp",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "request-timeout": 30,
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | sort + @timestamp"
+  }
+},
+{
+  "name": "ppl-desc_sort_with_after_timestamp",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "request-timeout": 30,
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where @timestamp < '2023-01-01 23:59:58.000000000' | sort - @timestamp"
+  }
+},
+{
+  "name": "ppl-sort_numeric_desc",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "request-timeout": 30,
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | sort - metrics.size"
+  }
+},
+{
+  "name": "ppl-sort_numeric_asc",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "request-timeout": 30,
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | sort + metrics.size"
+  }
+}
