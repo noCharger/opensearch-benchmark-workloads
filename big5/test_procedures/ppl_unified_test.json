@@ -1,0 +1,325 @@
+{
+  "name": "ppl_unified_test",
+  "default": false,
+  "description": "Test procedure for all PPL unified operations",
+  "schedule": [
+    {% with default_index_settings={}, index_name="big5" %}
+    {{ benchmark.collect(parts="../../common_operations/workload_setup.json") }},
+    {% endwith %}
+    {
+      "operation": "ppl-count-all",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-nonzero-size",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-basic-stats",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-avg-tmin",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-dc-agent-id",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-dc-host-name",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-timestamp-range",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-agent",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-dc-agent-by-region",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-multi-stats-by-region",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-dc-agent-by-host",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-dc-agent-by-tmin-host",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-input-type",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-dc-agent-by-input-type",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-datastream-input",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-agent-simple",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-agent-input",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-agent-input-simple",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-agent-minute-input",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-field-log-path",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-like-sshd-count",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-like-sshd-by-input",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-like-sshd-detailed",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-like-sshd-sorted",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-sort-timestamp-fields",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-sort-input-type",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-sort-ingested-input",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-eval-length-stats",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-regex-replace-stats",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-multiple-sums",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-stats-by-datastream-host",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-stats-by-event-host",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-stats-by-event-host-all",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-log-path",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-count-by-constant",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-size-conversions",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-timespan-pageviews",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-pageviews-by-datastream",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-pageviews-by-log-path",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-complex-dataflow-analysis",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-pageviews-by-date-log-path",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-pageviews-by-namespace-type",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-pageviews-with-time-format",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-lookup-event-delay",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "ppl-join-event-delay",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(200) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    }
+  ]
+}

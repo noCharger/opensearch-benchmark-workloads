@@ -13,6 +13,6 @@
   "path": "/_plugins/_ppl",
   "method": "POST",
   "body": {
-    "query": "source = {{index_name | default('big5')}} | stats sum(`metrics.size`) count() as c avg(`metrics.tmin`) dc(`agent.id`) by `cloud.region` | sort - c | head 10"
+    "query": "source = {{index_name | default('big5')}} | stats sum(`metrics.size`), count() as c, avg(`metrics.tmin`), dc(`agent.id`) by `cloud.region` | sort - c | head 10"
   }
 }

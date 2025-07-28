@@ -1,0 +1,405 @@
+{
+  "name": "ppl-count-all",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count()"
+  }
+},
+{
+  "name": "ppl-count-nonzero-size",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `metrics.size` != 0 | stats count()"
+  }
+},
+{
+  "name": "ppl-basic-stats",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats sum(`metrics.size`), count(), avg(`metrics.size`)"
+  }
+},
+{
+  "name": "ppl-avg-tmin",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats avg(`metrics.tmin`)"
+  }
+},
+{
+  "name": "ppl-dc-agent-id",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats dc(`agent.id`)"
+  }
+},
+{
+  "name": "ppl-dc-host-name",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats dc(`host.name`)"
+  }
+},
+{
+  "name": "ppl-timestamp-range",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats min(`@timestamp`), max(`@timestamp`)"
+  }
+},
+{
+  "name": "ppl-count-by-agent",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `metrics.size` != 0 | stats count() as count by `agent.id` | sort -count"
+  }
+},
+{
+  "name": "ppl-dc-agent-by-region",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats dc(`agent.id`) as u by `cloud.region` | sort - u | head 10"
+  }
+},
+{
+  "name": "ppl-multi-stats-by-region",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats sum(`metrics.size`), count() as c, avg(`metrics.tmin`), dc(`agent.id`) by `cloud.region` | sort - c | head 10"
+  }
+},
+{
+  "name": "ppl-dc-agent-by-host",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `host.name` != '' | stats dc(`agent.id`) as u by `host.name` | sort -u | head 10"
+  }
+},
+{
+  "name": "ppl-dc-agent-by-tmin-host",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `host.name` != '' | stats dc(`agent.id`) as u by `metrics.tmin`, `host.name` | sort -u | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-input-type",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | stats count() as c by `input.type` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-dc-agent-by-input-type",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | stats dc(`agent.id`) as u by `input.type` | sort -u | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-datastream-input",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | stats count() as c by `data_stream.type`, `input.type` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-agent-simple",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() by `agent.id` | sort -`count()` | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-agent-input",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() by `agent.id`, `input.type` | sort - `count()` | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-agent-input-simple",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() by `agent.id`, `input.type` | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-agent-minute-input",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | eval m=extract(minute from `event.ingested`) | stats count() as c by `agent.id`, m, `input.type` | sort - c | head 10"
+  }
+},
+{
+  "name": "ppl-field-log-path",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `log.file.path` = '/var/log/messages/birdknight' | fields `log.file.path`"
+  }
+},
+{
+  "name": "ppl-like-sshd-count",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where like(message, '%sshd%') | stats count()"
+  }
+},
+{
+  "name": "ppl-like-sshd-by-input",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where like(message, '%sshd%') and `input.type` != '' | stats min(`@timestamp`), count() as c by `input.type` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-like-sshd-detailed",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where like(message, '%sshd%') and `input.type` != '' | stats min(`@timestamp`) as first_time, min(`metrics.size`), count() as c, dc(`agent.id`) as unique_users by `input.type` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-like-sshd-sorted",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where like(message, '%sshd%') | sort `@timestamp` | head 10"
+  }
+},
+{
+  "name": "ppl-sort-timestamp-fields",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | sort `@timestamp` | head 10 | fields `input.type`"
+  }
+},
+{
+  "name": "ppl-sort-input-type",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | sort `input.type` | head 10 | fields `input.type`"
+  }
+},
+{
+  "name": "ppl-sort-ingested-input",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | sort `event.ingested`, `input.type` | head 10 | fields `input.type`"
+  }
+},
+{
+  "name": "ppl-eval-length-stats",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `log.file.path` != '' | eval len=length(`log.file.path`) | stats avg(len) as l, count() as c by `data_stream.dataset` | where c > 100000 | sort -l | head 25"
+  }
+},
+{
+  "name": "ppl-regex-replace-stats",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `log.file.path` != '' | eval k = regexp_replace(`log.file.path`, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') | stats avg(length(`log.file.path`)) as l, count() as c, min(`log.file.path`) by k | where c > 100000 | sort - l | head 25"
+  }
+},
+{
+  "name": "ppl-multiple-sums",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats sum(`metrics.size`) as sum_0, sum(`metrics.size` + 1) as sum_1, sum(`metrics.size` + 2) as sum_2, sum(`metrics.size` + 3) as sum_3, sum(`metrics.size` + 4) as sum_4, sum(`metrics.size` + 5) as sum_5, sum(`metrics.size` + 6) as sum_6, sum(`metrics.size` + 7) as sum_7, sum(`metrics.size` + 8) as sum_8, sum(`metrics.size` + 9) as sum_9, sum(`metrics.size` + 10) as sum_10"
+  }
+},
+{
+  "name": "ppl-stats-by-datastream-host",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | stats count() as c, sum(`metrics.size`) as refresh_sum, avg(`metrics.tmin`) as avg_width by `data_stream.type`, `host.name` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-stats-by-event-host",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `input.type` != '' | stats count() as c, sum(`metrics.size`) as refresh_sum, avg(`metrics.tmin`) as avg_width by `event.id`, `host.name` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-stats-by-event-host-all",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() as c, sum(`metrics.size`), avg(`metrics.tmin`) by `event.id`, `host.name` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-log-path",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | stats count() as c by `log.file.path` | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-count-by-constant",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | eval const = 1 | stats count() as c by const | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-size-conversions",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | eval size_kb = `metrics.size` / 1024 | eval size_mb = `metrics.size` / (1024 * 1024) | eval size_gb = `metrics.size` / (1024 * 1024 * 1024) | stats count() as c by size_kb, size_mb, size_gb | sort -c | head 10"
+  }
+},
+{
+  "name": "ppl-timespan-pageviews",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-13' and `metrics.tmin` = 0 and `metrics.size` > 0 and `log.file.path` != '' | eval timespan = date_format(`@timestamp`, 'yyyy-MM-dd HH:mm - 5m') | stats count() as PageViews by timespan, `log.file.path` | sort -PageViews | head 10"
+  }
+},
+{
+  "name": "ppl-pageviews-by-datastream",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.tmin` > 0 and `metrics.size` > 0 | stats count() as PageViews by `data_stream.type` | sort -PageViews | head 10"
+  }
+},
+{
+  "name": "ppl-pageviews-by-log-path",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.size` > 0 and `data_stream.type` != '' | stats count() as PageViews by `log.file.path` | sort -PageViews | head 10"
+  }
+},
+{
+  "name": "ppl-complex-dataflow-analysis",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.size` > 0 | eval Src = if(`data_stream.type` != '', `data_stream.type`, 'unknown'), Dst = if(`log.file.path` != '', `log.file.path`, 'unknown'), size_mb = `metrics.size` / (1024 * 1024) | stats count() as DataFlows, avg(size_mb) as avg_size_mb, sum(size_mb) as total_size_mb by Src, Dst, `agent.id` | sort - DataFlows | head 10"
+  }
+},
+{
+  "name": "ppl-pageviews-by-date-log-path",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+  "query": "source = {{index_name | default('big5')}} | where data_stream.dataset = \"generic\" and @timestamp >= \"2023-01-01\" and @timestamp <= \"2023-01-31\" and metrics.tmin > 0 and metrics.size > 0 | eval date = date_format(@timestamp, \"yyyy-MM-dd\") | stats count() as PageViews by date, log.file.path | sort -PageViews | head 10 from 100"
+  }
+},
+{
+  "name": "ppl-pageviews-by-namespace-type",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.size` > 0 and `metrics.tmin` > 0 and `event.id` != '' | stats count() as PageViews by `data_stream.namespace`, `data_stream.type` | sort -PageViews | head 10"
+  }
+},
+{
+  "name": "ppl-pageviews-with-time-format",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.size` > 0 and `metrics.tmin` > 0 and `event.id` != '' | eval M = date_format(`@timestamp`, '%Y-%m-%d %H:00:00') | stats count() as PageViews by `data_stream.namespace`, `data_stream.type` | sort -PageViews | head 10"
+  }
+},
+{
+  "name": "ppl-lookup-event-delay",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | lookup eventIndex event.id APPEND event.name | stats max(@timestamp) as event_time by event.name | eval Delay=round((now()-@timestamp)/60) | sort -Delay"
+  }
+},
+{
+  "name": "ppl-join-event-delay",
+  "operation-type": "raw-request",
+  "path": "/_plugins/_ppl",
+  "method": "POST",
+  "body": {
+    "query": "source = {{index_name | default('big5')}} | join `event.id`=`event.id` [source = {{index_name | default('big5')}} | stats count() as cnt by `event.id`] | stats max(`@timestamp`) as event_time by cnt | eval Delay=round((now()-`@timestamp`)/60) | sort -Delay"
+  }
+}
