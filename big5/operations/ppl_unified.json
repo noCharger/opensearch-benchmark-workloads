@@ -382,7 +382,7 @@
   "path": "/_plugins/_ppl",
   "method": "POST",
   "body": {
-    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.size` > 0 and `metrics.tmin` > 0 and `event.id` != '' | eval M = date_format(`@timestamp`, '%Y-%m-%d %H:00:00') | stats count() as PageViews by `data_stream.namespace`, `data_stream.type` | sort -PageViews | head 10"
+    "query": "source = {{index_name | default('big5')}} | where `data_stream.dataset` = 'generic' and `@timestamp` >= '2023-01-01' and `@timestamp` <= '2023-01-31' and `metrics.size` > 0 and `metrics.tmin` > 0 and `event.id` != '' | eval M = date_format(`@timestamp`, '%Y-%m-%d %H:00:00') | stats count() as PageViews by `data_stream.namespace`, `data_stream.type` | sort -PageViews | head 10 from 10000"
   }
 },
 {
