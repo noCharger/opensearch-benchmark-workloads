@@ -1,0 +1,35 @@
+{
+  "name": "error-queries",
+  "description": "Test procedure for the 4 queries with high error rates",
+  "default": false,
+  "schedule": [
+    {
+      "operation": "q21-google-urls",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(100) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "q22-google-search-phrases",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(100) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "q23-google-title-search",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(100) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    },
+    {
+      "operation": "q29-referer-analysis",
+      "warmup-iterations": {{ warmup_iterations | default(100) | tojson }},
+      "iterations": {{ test_iterations | default(100) | tojson }},
+      "target-throughput": {{ target_throughput | default(2) | tojson }},
+      "clients": {{ search_clients | default(1) }}
+    }
+  ]
+}
