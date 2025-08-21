@@ -13,15 +13,15 @@ CLIENTS=${7:-1}
 
 # Define all PPL operations
 PPL_OPERATIONS=(
-    "ppl-count-all" "ppl-count-nonzero-size" "ppl-basic-stats" "ppl-avg-tmin"
-    "ppl-dc-agent-id" "ppl-dc-host-name" "ppl-timestamp-range" "ppl-count-by-agent"
-    "ppl-dc-agent-by-region" "ppl-multi-stats-by-region" "ppl-dc-agent-by-host"
-    "ppl-dc-agent-by-tmin-host" "ppl-count-by-input-type" "ppl-dc-agent-by-input-type"
-    "ppl-count-by-datastream-input" "ppl-count-by-agent-simple" "ppl-count-by-agent-input"
-    "ppl-count-by-agent-input-simple" "ppl-count-by-agent-minute-input" "ppl-field-log-path"
-    "ppl-like-sshd-count" "ppl-like-sshd-by-input" "ppl-like-sshd-detailed"
-    "ppl-like-sshd-sorted" "ppl-sort-timestamp-fields" "ppl-sort-input-type"
+    "ppl-sort-ingested-input" "ppl-eval-length-stats" "ppl-regex-replace-stats"
+    "ppl-multiple-sums" "ppl-stats-by-datastream-host" "ppl-stats-by-event-host"
+    "ppl-stats-by-event-host-all" "ppl-count-by-log-path" "ppl-count-by-constant"
+    "ppl-size-conversions" "ppl-timespan-pageviews" "ppl-pageviews-by-datastream"
+    "ppl-pageviews-by-log-path" "ppl-complex-dataflow-analysis" "ppl-pageviews-by-date-log-path"
+    "ppl-pageviews-by-namespace-type" "ppl-pageviews-with-time-format" "ppl-lookup-event-delay"
+    "ppl-join-event-delay"
 )
+
 
 echo "Running operations from workload: $WORKLOAD"
 

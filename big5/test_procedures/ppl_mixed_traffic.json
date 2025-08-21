@@ -1,0 +1,63 @@
+{
+  "name": "ppl_mixed_traffic",
+  "default": false,
+  "description": "Mixed traffic test procedure for PPL operations with parallel execution",
+  "schedule": [
+    {% with default_index_settings={}, index_name="big5" %}
+    {{ benchmark.collect(parts="../../common_operations/workload_setup.json") }},
+    {% endwith %}
+    {
+      "parallel": {
+        "warmup-time-period": 300,
+        "time-period": 600,
+        "ramp-up-time-period": 300,
+        "ramp-up-strategy": "linear",
+        "timeout": 300,
+        "tasks": [
+          {
+            "name": "ppl-count-all",
+            "operation": "ppl-count-all",
+            "target-throughput": 1,
+            "clients": 1,
+            "timeout": 120
+          },
+          {
+            "name": "ppl-basic-stats",
+            "operation": "ppl-basic-stats",
+            "target-throughput": 1,
+            "clients": 1,
+            "timeout": 180
+          },
+          {
+            "name": "ppl-count-nonzero-size",
+            "operation": "ppl-count-nonzero-size",
+            "target-throughput": 1,
+            "clients": 1,
+            "timeout": 120
+          },
+          {
+            "name": "ppl-avg-tmin",
+            "operation": "ppl-avg-tmin",
+            "target-throughput": 1,
+            "clients": 1,
+            "timeout": 180
+          },
+          {
+            "name": "ppl-dc-agent-id",
+            "operation": "ppl-dc-agent-id",
+            "target-throughput": 1,
+            "clients": 3,
+            "timeout": 60
+          },
+          {
+            "name": "ppl-dc-host-name",
+            "operation": "ppl-dc-host-name",
+            "target-throughput": 1,
+            "clients": 1,
+            "timeout": 120
+          }
+        ]
+      }
+    }
+  ]
+}
